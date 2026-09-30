@@ -7,6 +7,14 @@ from std_msgs.msg import String
 from mission_manager.delivery_queue import DeliveryQueue
 from mission_manager.state_machine import MissionState
 
+FAKE_DURATION = {
+    MissionState.NAVIGATING: 5,
+    MissionState.DELIVERING: 3,
+    MissionState.RETURNING: 5,
+    MissionState.DOCKING: 2,
+    MissionState.DOCKED: 1,
+}
+
 
 class MissionManagerNode(Node):
     def __init__(self):
@@ -14,6 +22,8 @@ class MissionManagerNode(Node):
         self.state = MissionState.IDLE
         self.queue = DeliveryQueue()
         self.current_order = None
+        self.ticks_in_state = 0
+        self.battery = 100.0
 
         self.create_subscription(
             String, '/delivery_request', self.on_delivery_request, 10)
@@ -25,6 +35,7 @@ class MissionManagerNode(Node):
     def set_state(self, new_state):
         self.get_logger().info(f'{self.state.value} -> {new_state.value}')
         self.state = new_state
+        self.ticks_in_state = 0
 
     def on_delivery_request(self, msg):
         try:
@@ -44,11 +55,6 @@ class MissionManagerNode(Node):
         if self.state == MissionState.IDLE:
             self.set_state(MissionState.QUEUED)
 
-    def tick(self):
-        if self.state == MissionState.QUEUED:
-            self.dispatch_next_order()
-        self.publish_status()
-
     def dispatch_next_order(self):
         order = self.queue.next()
         if order is None:
@@ -59,10 +65,39 @@ class MissionManagerNode(Node):
             f'Dispatching {order["order_id"]} -> {order["destination"]}')
         self.set_state(MissionState.NAVIGATING)
 
+    def advance(self):
+        s = self.state
+        if s == MissionState.NAVIGATING:
+            self.set_state(MissionState.DELIVERING)
+        elif s == MissionState.DELIVERING:
+            self.current_order = None
+            if not self.queue.is_empty():
+                self.dispatch_next_order()
+            else:
+                self.set_state(MissionState.RETURNING)
+        elif s == MissionState.RETURNING:
+            self.set_state(MissionState.DOCKING)
+        elif s == MissionState.DOCKING:
+            self.set_state(MissionState.DOCKED)
+        elif s == MissionState.DOCKED:
+            if not self.queue.is_empty():
+                self.set_state(MissionState.QUEUED)
+            else:
+                self.set_state(MissionState.IDLE)
+
+    def tick(self):
+        self.ticks_in_state += 1
+        if self.state == MissionState.QUEUED:
+            self.dispatch_next_order()
+        elif (self.state in FAKE_DURATION
+              and self.ticks_in_state >= FAKE_DURATION[self.state]):
+            self.advance()
+        self.publish_status()
+
     def publish_status(self):
         payload = {
             'state': self.state.value,
-            'battery': 100.0,
+            'battery': self.battery,
             'current_order': (self.current_order['order_id']
                               if self.current_order else None),
         }
