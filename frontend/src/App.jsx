@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 
 const API = 'http://localhost:8000'
-const DESTINATIONS = ['reception', 'dock', 'room_101', 'room_102', 'room_103', 'room_104', 'room_105', 'room_106']
+const DESTINATIONS = ['reception', 'room_101', 'room_102', 'room_103', 'room_104', 'room_105', 'room_106']
 
 const STATE_COLOR = {
   IDLE: 'text-zinc-400',
@@ -22,6 +22,7 @@ export default function App() {
   const [connected, setConnected] = useState(false)
   const [destination, setDestination] = useState(DESTINATIONS[0])
   const [log, setLog] = useState([])
+  const [sending, setSending] = useState(false)
   const lastState = useRef(null)
 
   useEffect(() => {
@@ -49,11 +50,17 @@ export default function App() {
 
   const submit = async (e) => {
     e.preventDefault()
-    await fetch(`${API}/delivery`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ order_id: genOrderId(), destination }),
-    })
+    if (sending) return
+    setSending(true)
+    try {
+      await fetch(`${API}/delivery`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ order_id: genOrderId(), destination }),
+      })
+    } finally {
+      setTimeout(() => setSending(false), 1000)
+    }
   }
 
   const battery = status?.battery ?? 0
@@ -113,9 +120,10 @@ export default function App() {
             </select>
             <button
               type="submit"
-              className="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white text-sm rounded transition-colors"
+              disabled={sending}
+              className="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 disabled:bg-zinc-700 disabled:cursor-not-allowed text-white text-sm rounded transition-colors"
             >
-              Send delivery
+              {sending ? 'Sending…' : 'Send delivery'}
             </button>
           </form>
         </section>
