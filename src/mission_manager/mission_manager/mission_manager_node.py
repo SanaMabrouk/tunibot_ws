@@ -6,6 +6,7 @@ from std_msgs.msg import String
 
 from mission_manager.delivery_queue import DeliveryQueue
 from mission_manager.state_machine import MissionState
+from mission_manager.destination_resolver import resolve
 
 FAKE_DURATION = {
     MissionState.NAVIGATING: 5,
@@ -45,6 +46,12 @@ class MissionManagerNode(Node):
         except (json.JSONDecodeError, KeyError, TypeError) as e:
             self.get_logger().error(
                 f'Invalid request ignored: {msg.data} ({e})')
+            return
+
+        try:
+            resolve(destination)
+        except ValueError as e:
+            self.get_logger().error(f'Rejected: {e}')
             return
 
         self.queue.add(order_id, destination)
