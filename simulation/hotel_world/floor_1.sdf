@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf version="1.9">
+  <world name="floor_1">
+
+    <!-- Inclusion du modèle (placé correctement dans le world) -->
+    <include>
+      <uri>model://conseption_mec</uri>
+      <pose>4.5 4.9 0 1.5708 0 0</pose>
+    </include>
+
+    <!-- Configuration de la physique -->
+    <physics name="1ms" type="dart">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1</real_time_factor>
+    </physics>
+
+    <!-- Plugins Gazebo Sim -->
+    <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
+    <plugin filename="gz-sim-user-commands-system" name="gz::sim::systems::UserCommands"/>
+    <plugin filename="gz-sim-scene-broadcaster-system" name="gz::sim::systems::SceneBroadcaster"/>
+    <plugin filename="gz-sim-sensors-system" name="gz::sim::systems::Sensors">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+    <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu"/>
+
+    <!-- Configuration de la scène -->
+    <scene>
+      <ambient>0.7 0.7 0.7 1</ambient>
+      <background>0.75 0.80 0.85 1</background>
+    </scene>
+
+    <!-- Sol principal -->
+    <model name="rdc_sol">
+      <static>true</static>
+      <pose>0.000 0.000 -0.050 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>18.000 12.000 0.100</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>18.000 12.000 0.100</size></box></geometry>
+          <material>
+            <ambient>0.75 0.65 0.5 1</ambient>
+            <diffuse>0.75 0.65 0.5 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Murs périphériques -->
+    <model name="rdc_mur_nord_0">
+      <static>true</static>
+      <pose>0.000 6.000 1.400 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>18.000 0.150 2.800</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>18.000 0.150 2.800</size></box></geometry>
+          <material>
+            <ambient>0.9 0.88 0.82 1</ambient>
+            <diffuse>0.9 0.88 0.82 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_mur_sud_0">
+      <static>true</static>
+      <pose>0.000 -6.000 1.400 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>18.000 0.150 2.800</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>18.000 0.150 2.800</size></box></geometry>
+          <material>
+            <ambient>0.9 0.88 0.82 1</ambient>
+            <diffuse>0.9 0.88 0.82 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_mur_est_0">
+      <static>true</static>
+      <pose>9.000 0.000 1.400 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.150 11.850 2.800</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.150 11.850 2.800</size></box></geometry>
+          <material>
+            <ambient>0.9 0.88 0.82 1</ambient>
+            <diffuse>0.9 0.88 0.82 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_mur_ouest_0">
+      <static>true</static>
+      <pose>-9.000 -3.462 1.400 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.150 4.925 2.800</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.150 4.925 2.800</size></box></geometry>
+          <material>
+            <ambient>0.9 0.88 0.82 1</ambient>
+            <diffuse>0.9 0.88 0.82 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_mur_ouest_1">
+      <static>true</static>
+      <pose>-9.000 3.462 1.400 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.150 4.925 2.800</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.150 4.925 2.800</size></box></geometry>
+          <material>
+            <ambient>0.9 0.88 0.82 1</ambient>
+            <diffuse>0.9 0.88 0.82 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Éclairage -->
+    <light name="rdc_lumiere_1" type="point">
+      <pose>-4.500 0.000 2.6 0 0 0</pose>
+      <cast_shadows>false</cast_shadows>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>0.3 0.3 0.3 1</specular>
+      <attenuation>
+        <range>20</range>
+        <constant>0.5</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+    </light>
+
+    <light name="rdc_lumiere_2" type="point">
+      <pose>4.500 0.000 2.6 0 0 0</pose>
+      <cast_shadows>false</cast_shadows>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>0.3 0.3 0.3 1</specular>
+      <attenuation>
+        <range>20</range>
+        <constant>0.5</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+    </light>
+
+    <!-- Éléments intérieurs -->
+    <model name="rdc_ascenseur_sol">
+      <static>true</static>
+      <pose>8.000 0.000 0.010 0 0 0.000</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>2.000 2.000 0.020</size></box></geometry>
+          <material>
+            <ambient>0.7 0.72 0.75 1</ambient>
+            <diffuse>0.7 0.72 0.75 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_ascenseur_cote_n_0">
+      <static>true</static>
+      <pose>7.963 1.000 1.400 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>1.925 0.150 2.800</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>1.925 0.150 2.800</size></box></geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_ascenseur_cote_s_0">
+      <static>true</static>
+      <pose>7.963 -1.000 1.400 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>1.925 0.150 2.800</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>1.925 0.150 2.800</size></box></geometry>
+          <material>
+            <ambient>0.55 0.58 0.62 1</ambient>
+            <diffuse>0.55 0.58 0.62 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_ascenseur_panneau">
+      <static>true</static>
+      <pose>6.950 1.250 1.200 0 0 0.000</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.050 0.200 0.300</size></box></geometry>
+          <material>
+            <ambient>0.9 0.7 0.1 1</ambient>
+            <diffuse>0.9 0.7 0.1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_tapis_entree">
+      <static>true</static>
+      <pose>-8.200 0.000 0.005 0 0 0.000</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>1.500 2.000 0.010</size></box></geometry>
+          <material>
+            <ambient>0.15 0.15 0.17 1</ambient>
+            <diffuse>0.15 0.15 0.17 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_reception_comptoir">
+      <static>true</static>
+      <pose>-5.000 3.000 0.550 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>3.000 0.800 1.100</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>3.000 0.800 1.100</size></box></geometry>
+          <material>
+            <ambient>0.55 0.35 0.18 1</ambient>
+            <diffuse>0.55 0.35 0.18 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_reception_ecran">
+      <static>true</static>
+      <pose>-5.000 3.000 1.250 0 0 0.000</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.400 0.050 0.300</size></box></geometry>
+          <material>
+            <ambient>0.15 0.15 0.17 1</ambient>
+            <diffuse>0.15 0.15 0.17 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_reception_tableau_cles">
+      <static>true</static>
+      <pose>-5.000 5.850 1.250 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>3.000 0.100 1.500</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>3.000 0.100 1.500</size></box></geometry>
+          <material>
+            <ambient>0.3 0.2 0.1 1</ambient>
+            <diffuse>0.3 0.2 0.1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_minibar_comptoir">
+      <static>true</static>
+      <pose>-5.000 -3.500 0.525 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>3.000 0.700 1.050</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>3.000 0.700 1.050</size></box></geometry>
+          <material>
+            <ambient>0.55 0.35 0.18 1</ambient>
+            <diffuse>0.55 0.35 0.18 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_minibar_frigo">
+      <static>true</static>
+      <pose>-6.600 -5.500 0.900 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.700 0.700 1.800</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.700 0.700 1.800</size></box></geometry>
+          <material>
+            <ambient>0.85 0.85 0.9 1</ambient>
+            <diffuse>0.85 0.85 0.9 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_minibar_etagere">
+      <static>true</static>
+      <pose>-4.400 -5.800 0.800 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>2.200 0.300 1.600</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>2.200 0.300 1.600</size></box></geometry>
+          <material>
+            <ambient>0.4 0.28 0.15 1</ambient>
+            <diffuse>0.4 0.28 0.15 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_minibar_tabouret_1">
+      <static>true</static>
+      <pose>-6.000 -2.700 0.300 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.200</radius><length>0.600</length></cylinder></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.200</radius><length>0.600</length></cylinder></geometry>
+          <material>
+            <ambient>0.6 0.1 0.1 1</ambient>
+            <diffuse>0.6 0.1 0.1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_minibar_tabouret_2">
+      <static>true</static>
+      <pose>-5.000 -2.700 0.300 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.200</radius><length>0.600</length></cylinder></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.200</radius><length>0.600</length></cylinder></geometry>
+          <material>
+            <ambient>0.6 0.1 0.1 1</ambient>
+            <diffuse>0.6 0.1 0.1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_minibar_tabouret_3">
+      <static>true</static>
+      <pose>-4.000 -2.700 0.300 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><cylinder><radius>0.200</radius><length>0.600</length></cylinder></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><cylinder><radius>0.200</radius><length>0.600</length></cylinder></geometry>
+          <material>
+            <ambient>0.6 0.1 0.1 1</ambient>
+            <diffuse>0.6 0.1 0.1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_charge_zone">
+      <static>true</static>
+      <pose>4.500 4.900 0.005 0 0 0.000</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>1.400 1.400 0.010</size></box></geometry>
+          <material>
+            <ambient>0.1 0.7 0.3 1</ambient>
+            <diffuse>0.1 0.7 0.3 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_charge_borne">
+      <static>true</static>
+      <pose>4.500 5.800 0.350 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>0.600 0.300 0.700</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>0.600 0.300 0.700</size></box></geometry>
+          <material>
+            <ambient>0.95 0.5 0.1 1</ambient>
+            <diffuse>0.95 0.5 0.1 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_charge_voyant">
+      <static>true</static>
+      <pose>4.500 5.640 0.550 0 0 0.000</pose>
+      <link name="link">
+        <visual name="visual">
+          <geometry><box><size>0.150 0.020 0.050</size></box></geometry>
+          <material>
+            <ambient>0.1 0.7 0.3 1</ambient>
+            <diffuse>0.1 0.7 0.3 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_canape">
+      <static>true</static>
+      <pose>0.000 -4.800 0.225 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>2.000 0.900 0.450</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>2.000 0.900 0.450</size></box></geometry>
+          <material>
+            <ambient>0.3 0.35 0.5 1</ambient>
+            <diffuse>0.3 0.35 0.5 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="rdc_table_basse">
+      <static>true</static>
+      <pose>0.000 -3.600 0.200 0 0 0.000</pose>
+      <link name="link">
+        <collision name="collision">
+          <geometry><box><size>1.000 0.600 0.400</size></box></geometry>
+        </collision>
+        <visual name="visual">
+          <geometry><box><size>1.000 0.600 0.400</size></box></geometry>
+          <material>
+            <ambient>0.55 0.35 0.18 1</ambient>
+            <diffuse>0.55 0.35 0.18 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>
