@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 
 const API = 'http://localhost:8000'
-const DESTINATIONS = ['reception', 'room_101', 'room_102', 'room_103', 'room_104', 'room_105', 'room_106']
+const DESTINATIONS = ['minibar', 'lounge', 'entrance', 'reception']
 
 const STATE_COLOR = {
   IDLE: 'text-zinc-400',

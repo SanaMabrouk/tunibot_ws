@@ -5,46 +5,21 @@ reception:
   yaw: 0.0
 dock:
   floor: 0
-  x: 0.0
-  y: 0.0
+  x: 4.5
+  y: 4.9
   yaw: 0.0
-elevator_rdc:
+minibar:
   floor: 0
-  x: 8.0
-  y: 0.0
+  x: -5.0
+  y: -3.5
   yaw: 0.0
-elevator_etage1:
-  floor: 1
+lounge:
+  floor: 0
   x: 0.0
+  y: -4.8
+  yaw: 0.0
+entrance:
+  floor: 0
+  x: -8.2
   y: 0.0
-  yaw: 0.0
-room_101:
-  floor: 1
-  x: -8.0
-  y: -14.0
-  yaw: 0.0
-room_102:
-  floor: 1
-  x: -3.0
-  y: -14.0
-  yaw: 0.0
-room_103:
-  floor: 1
-  x: 2.0
-  y: -14.0
-  yaw: 0.0
-room_104:
-  floor: 1
-  x: -8.0
-  y: -18.0
-  yaw: 0.0
-room_105:
-  floor: 1
-  x: -3.0
-  y: -18.0
-  yaw: 0.0
-room_106:
-  floor: 1
-  x: 2.0
-  y: -18.0
   yaw: 0.0
